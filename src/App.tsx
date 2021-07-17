@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { getSummaries } from './api-services/getSummaries';
 import { CountryList } from './summary-table/CountryList';
+import { SearchBar } from './search-bar/SearchBar';
 
 // //  if (!this.state.data) {
 // //             (async () => {
@@ -22,7 +23,10 @@ export const App: FunctionComponent = () => {
 
     getAllSummaries();
     return (
-        <div>
+        <div className="mt-5 ml-5 mr-5">
+            <div className="row">
+                <SearchBar />
+            </div>
             <CountryList />
         </div>
     );
