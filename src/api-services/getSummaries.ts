@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-interface Summary {
+export interface Summary {
     NewConfirmed: number;
     NewRecovered: number;
     TotalConfirmed: number;

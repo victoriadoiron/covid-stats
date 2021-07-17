@@ -1,5 +1,14 @@
 import React, { FunctionComponent } from 'react';
 import { CountryListItem } from './CountryListItem';
+import { GlobalSummary } from './GlobalSummary';
+
+const MOCK_GLOBAL_SUMMARY = {
+    TotalConfirmed: 123456,
+    TotalRecovered: 9876,
+    TotalDeaths: 1200,
+    NewConfirmed: 0,
+    NewRecovered: 0,
+};
 
 const MOCK_COUNTRIES_LIST = [
     {
@@ -47,6 +56,7 @@ export const CountryList: FunctionComponent = () => {
                 {MOCK_COUNTRIES_LIST.map((countrySummary) => (
                     <CountryListItem key={countrySummary.ID} countrySummary={countrySummary} />
                 ))}
+                <GlobalSummary globalSummary={MOCK_GLOBAL_SUMMARY} />
             </tbody>
         </table>
     );
