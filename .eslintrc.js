@@ -29,6 +29,7 @@ module.exports = {
     'linebreak-style': 'off',
     '@typescript-eslint/camelcase': 'off',
     'import/prefer-default-export': 'off',
+    'react/prop-types': 'off',
     'prettier/prettier': [
       'error',
       {
