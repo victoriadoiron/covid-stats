@@ -34,10 +34,20 @@ const MOCK_COUNTRIES_LIST = [
 
 export const CountryList: FunctionComponent = () => {
     return (
-        <div>
-            {MOCK_COUNTRIES_LIST.map((countrySummary) => (
-                <CountryListItem countrySummary={countrySummary} />
-            ))}
-        </div>
+        <table className="table">
+            <thead className="thead-dark">
+                <tr>
+                    <th scope="col">Country</th>
+                    <th scope="col">Total Confirmed Cases</th>
+                    <th scope="col">Total Recovered</th>
+                    <th scope="col">Total Deaths</th>
+                </tr>
+            </thead>
+            <tbody>
+                {MOCK_COUNTRIES_LIST.map((countrySummary) => (
+                    <CountryListItem key={countrySummary.ID} countrySummary={countrySummary} />
+                ))}
+            </tbody>
+        </table>
     );
 };
