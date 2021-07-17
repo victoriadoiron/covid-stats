@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { FunctionComponent } from 'react';
+import { getSummaries } from './api-services/getSummaries';
+import { CountryList } from './summary-table/CountryList';
 
-function App() {
+// //  if (!this.state.data) {
+// //             (async () => {
+// //                 try {
+// //                     this.setState({data: await this.getData()});
+// //                 } catch (e) {
+// //                     //...handle the error...
+// //                 }
+// //             })();
+
+export const App: FunctionComponent = () => {
+    const getAllSummaries = async () => {
+        try {
+            await getSummaries();
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
+    getAllSummaries();
     return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>
-                    Edit <code>src/App.tsx</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
-            </header>
+        <div>
+            <CountryList />
         </div>
     );
-}
-
-export default App;
+};

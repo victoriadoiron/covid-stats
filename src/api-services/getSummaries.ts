@@ -7,9 +7,10 @@ interface Summary {
     TotalDeaths: number;
     TotalRecovered: number;
 }
-interface CountrySummary extends Summary {
+export interface CountrySummary extends Summary {
     Country: string;
     CountryCode: string;
+    Slug: string;
 }
 
 interface SummaryResponse {
