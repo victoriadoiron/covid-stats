@@ -31,7 +31,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'react/prop-types': 'off',
     'prettier/prettier': [
-      'error',
+      'warn',
       {
         endOfLine: 'auto',
         singleQuote: true,
