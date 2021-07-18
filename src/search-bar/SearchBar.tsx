@@ -1,5 +1,6 @@
 import React, { ChangeEvent, FunctionComponent, useState } from 'react';
 import { Search } from 'react-bootstrap-icons';
+import { Button } from 'react-bootstrap';
 
 export const SearchBar: FunctionComponent = () => {
     const [keyword, setKeyword] = useState('');
@@ -21,14 +22,9 @@ export const SearchBar: FunctionComponent = () => {
                 onChange={handleChange}
             />
             <div className="input-group-append">
-                <button
-                    className="btn btn-secondary"
-                    type="button"
-                    id="search-button"
-                    disabled={!keyword}
-                >
+                <Button variant="secondary" id="search-button" disabled={!keyword}>
                     <Search />
-                </button>
+                </Button>
             </div>
         </div>
     );
