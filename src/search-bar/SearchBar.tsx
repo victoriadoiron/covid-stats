@@ -3,12 +3,14 @@ import { Search } from 'react-bootstrap-icons';
 import { Button, Dropdown, InputGroup } from 'react-bootstrap';
 import './searchbar.css';
 import { useSearchSuggestions } from './useSearchSuggestions';
+import { CountrySummary } from '../api-services/getSummaries';
 
 interface Props {
     handleSearch: (searchTerm: string) => void;
+    handleSelect: (suggestion: CountrySummary) => void;
 }
 
-export const SearchBar: FunctionComponent<Props> = ({ handleSearch }) => {
+export const SearchBar: FunctionComponent<Props> = ({ handleSearch, handleSelect }) => {
     const [keyword, setKeyword] = useState('');
     const { searchSuggestions, handleFilter } = useSearchSuggestions();
 
@@ -22,7 +24,21 @@ export const SearchBar: FunctionComponent<Props> = ({ handleSearch }) => {
         handleSearch(keyword);
     }, [handleSearch, keyword]);
 
-    const onSelect = (a: any) => console.log(a);
+    const onSelect = useCallback(
+        (countryId: string | null) => {
+            const selectedSuggestion = searchSuggestions.find(
+                (suggestion) => suggestion.ID === countryId,
+            );
+
+            if (!selectedSuggestion) {
+                return;
+            }
+
+            setKeyword(selectedSuggestion.Country);
+            handleSelect(selectedSuggestion);
+        },
+        [searchSuggestions, handleSelect],
+    );
 
     return (
         <div className="input-group mb-3 col-3 ml-auto dropdown">

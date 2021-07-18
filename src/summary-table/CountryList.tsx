@@ -8,6 +8,7 @@ const MOCK_GLOBAL_SUMMARY = {
     TotalConfirmed: 123456,
     TotalRecovered: 9876,
     TotalDeaths: 1200,
+    NewDeaths: 0,
     NewConfirmed: 0,
     NewRecovered: 0,
 };

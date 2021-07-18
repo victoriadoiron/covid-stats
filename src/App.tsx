@@ -5,14 +5,14 @@ import { SearchBar } from './search-bar/SearchBar';
 import { useCountrySummaries } from './useCountrySummaries';
 
 export const App: FunctionComponent = () => {
-    const { summaryData, handleSearch } = useCountrySummaries();
+    const { summaryData, handleSearch, handleSelect } = useCountrySummaries();
     return (
         <div className="mt-5 ml-5 mr-5">
             <div className="row">
                 <Col>
                     <h1 className="h5">COVID-19 Statistics</h1>
                 </Col>
-                <SearchBar handleSearch={handleSearch} />
+                <SearchBar handleSearch={handleSearch} handleSelect={handleSelect} />
             </div>
             <CountryList countrySummaries={summaryData} />
         </div>

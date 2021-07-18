@@ -3,6 +3,7 @@ import axios from 'axios';
 export interface Summary {
     NewConfirmed: number;
     NewRecovered: number;
+    NewDeaths: number;
     TotalConfirmed: number;
     TotalDeaths: number;
     TotalRecovered: number;
@@ -12,6 +13,9 @@ export interface CountrySummary extends Summary {
     CountryCode: string;
     Slug: string;
     ID: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    Premium: any;
+    Date: string;
 }
 
 interface SummaryResponse {

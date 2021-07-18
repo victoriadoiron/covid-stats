@@ -5,6 +5,7 @@ import { CountrySummary, MOCK_COUNTRIES_LIST } from './api-services/getSummaries
 interface CountrySummariesState {
     summaryData: CountrySummary[];
     handleSearch: (searchTerm?: string) => void;
+    handleSelect: (suggestion: CountrySummary) => void;
 }
 
 export const useCountrySummaries = (): CountrySummariesState => {
@@ -28,8 +29,13 @@ export const useCountrySummaries = (): CountrySummariesState => {
         [handleResetSummaryData],
     );
 
+    const handleSelect = useCallback((suggestion: CountrySummary) => {
+        setSummaryData([suggestion]);
+    }, []);
+
     return {
         summaryData,
         handleSearch,
+        handleSelect,
     };
 };
