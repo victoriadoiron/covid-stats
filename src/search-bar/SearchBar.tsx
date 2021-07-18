@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Search } from 'react-bootstrap-icons';
+import { Search, X } from 'react-bootstrap-icons';
 import { Button, Dropdown, InputGroup } from 'react-bootstrap';
 import './searchbar.css';
 import { CountrySummary } from '../api-services/getSummaries';
@@ -20,15 +20,17 @@ export const SearchBar: FunctionComponent<Props> = ({ handleSearch, handleSelect
         <div className="input-group mb-3 col-3 ml-auto dropdown">
             <Dropdown>
                 <Dropdown.Toggle as={InputGroup} bsPrefix="p-0">
-                    <input
-                        value={keyword}
-                        type="text"
-                        className="form-control"
-                        placeholder="Filter by country"
-                        aria-label="Filter by country"
-                        aria-describedby="search-button"
-                        onChange={handleChange}
-                    />
+                    <div>
+                        <input
+                            value={keyword}
+                            type="text"
+                            className="form-control"
+                            placeholder="Filter by country"
+                            aria-label="Filter by country"
+                            aria-describedby="search-button"
+                            onChange={handleChange}
+                        />
+                    </div>
                 </Dropdown.Toggle>
                 <Dropdown.Menu className="searchFilterMenu">
                     {searchSuggestions.map((countrySummary) => (
@@ -46,6 +48,11 @@ export const SearchBar: FunctionComponent<Props> = ({ handleSearch, handleSelect
                 </Dropdown.Menu>
             </Dropdown>
             <div className="input-group-append">
+                {!!keyword && (
+                    <Button variant="outline-secondary" id="clear-button">
+                        <X />
+                    </Button>
+                )}
                 <Button
                     variant="secondary"
                     id="search-button"
