@@ -1,9 +1,9 @@
-import React, { ChangeEvent, FunctionComponent, useCallback, useEffect, useState } from 'react';
+import React, { FunctionComponent } from 'react';
 import { Search } from 'react-bootstrap-icons';
 import { Button, Dropdown, InputGroup } from 'react-bootstrap';
 import './searchbar.css';
-import { useSearchSuggestions } from './useSearchSuggestions';
 import { CountrySummary } from '../api-services/getSummaries';
+import { useSearch } from './useSearch';
 
 interface Props {
     handleSearch: (searchTerm: string) => void;
@@ -11,36 +11,9 @@ interface Props {
 }
 
 export const SearchBar: FunctionComponent<Props> = ({ handleSearch, handleSelect }) => {
-    const [keyword, setKeyword] = useState('');
-    const { searchSuggestions, handleFilter } = useSearchSuggestions();
-
-    useEffect(() => {
-        handleFilter(keyword);
-    }, [keyword, handleFilter]);
-
-    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const { value } = event.target;
-        setKeyword(value);
-    };
-
-    const onSearch = useCallback(() => {
-        handleSearch(keyword);
-    }, [handleSearch, keyword]);
-
-    const onSelect = useCallback(
-        (countryId: string | null) => {
-            const selectedSuggestion = searchSuggestions.find(
-                (suggestion) => suggestion.ID === countryId,
-            );
-
-            if (!selectedSuggestion) {
-                return;
-            }
-
-            setKeyword(selectedSuggestion.Country);
-            handleSelect(selectedSuggestion);
-        },
-        [searchSuggestions, handleSelect],
+    const { searchSuggestions, onSelect, onSearch, handleChange, keyword } = useSearch(
+        handleSearch,
+        handleSelect,
     );
 
     return (
