@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from 'react';
+import { Table } from 'react-bootstrap';
 import { CountryListItem } from './CountryListItem';
 import { GlobalSummary } from './GlobalSummary';
 
@@ -43,7 +44,7 @@ const MOCK_COUNTRIES_LIST = [
 
 export const CountryList: FunctionComponent = () => {
     return (
-        <table className="table">
+        <Table className="table">
             <thead className="thead-dark">
                 <tr>
                     <th scope="col">Country</th>
@@ -58,6 +59,6 @@ export const CountryList: FunctionComponent = () => {
                 ))}
                 <GlobalSummary globalSummary={MOCK_GLOBAL_SUMMARY} />
             </tbody>
-        </table>
+        </Table>
     );
 };
