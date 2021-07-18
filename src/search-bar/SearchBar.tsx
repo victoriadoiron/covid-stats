@@ -2,7 +2,7 @@ import React, { ChangeEvent, FunctionComponent, useCallback, useState } from 're
 import { Search } from 'react-bootstrap-icons';
 import { Button, Dropdown, InputGroup } from 'react-bootstrap';
 import './searchbar.css';
-import { MOCK_COUNTRIES_LIST } from '../api-services/getSummaries';
+import { useSearchSuggestions } from './useSearchSuggestions';
 
 interface Props {
     handleSearch: (searchTerm: string) => void;
@@ -10,15 +10,19 @@ interface Props {
 
 export const SearchBar: FunctionComponent<Props> = ({ handleSearch }) => {
     const [keyword, setKeyword] = useState('');
+    const { searchSuggestions, handleFilter } = useSearchSuggestions();
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { value } = event.target;
         setKeyword(value);
+        handleFilter(value);
     };
 
     const onSearch = useCallback(() => {
         handleSearch(keyword);
     }, [handleSearch, keyword]);
+
+    const onSelect = (a: any) => console.log(a);
 
     return (
         <div className="input-group mb-3 col-3 ml-auto dropdown">
@@ -36,14 +40,15 @@ export const SearchBar: FunctionComponent<Props> = ({ handleSearch }) => {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu className="searchFilterMenu">
-                    {MOCK_COUNTRIES_LIST.map((countrySummary) => (
-                        <Dropdown.Item key={countrySummary.ID}>
+                    {searchSuggestions.map((countrySummary) => (
+                        <Dropdown.Item
+                            eventKey={countrySummary.ID}
+                            onSelect={onSelect}
+                            key={countrySummary.ID}
+                        >
                             {countrySummary.Country}
                         </Dropdown.Item>
                     ))}
-                    <Dropdown.Item>Country 1 </Dropdown.Item>
-                    <Dropdown.Item>Country 2</Dropdown.Item>
-                    <Dropdown.Item>Country 3</Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>
             <div className="input-group-append">
