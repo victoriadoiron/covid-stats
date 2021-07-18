@@ -1,8 +1,8 @@
 import React, { ChangeEvent, FunctionComponent, useCallback, useState } from 'react';
 import { Search } from 'react-bootstrap-icons';
 import { Button, Dropdown, InputGroup } from 'react-bootstrap';
-import { MOCK_COUNTRIES_LIST } from '../summary-table/CountryList';
 import './searchbar.css';
+import { MOCK_COUNTRIES_LIST } from '../api-services/getSummaries';
 
 interface Props {
     handleSearch: (searchTerm: string) => void;
@@ -37,7 +37,9 @@ export const SearchBar: FunctionComponent<Props> = ({ handleSearch }) => {
 
                 <Dropdown.Menu className="searchFilterMenu">
                     {MOCK_COUNTRIES_LIST.map((countrySummary) => (
-                        <Dropdown.Item>{countrySummary.Country}</Dropdown.Item>
+                        <Dropdown.Item key={countrySummary.ID}>
+                            {countrySummary.Country}
+                        </Dropdown.Item>
                     ))}
                     <Dropdown.Item>Country 1 </Dropdown.Item>
                     <Dropdown.Item>Country 2</Dropdown.Item>
