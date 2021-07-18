@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FunctionComponent, useCallback, useState } from 'react';
+import React, { ChangeEvent, FunctionComponent, useCallback, useEffect, useState } from 'react';
 import { Search } from 'react-bootstrap-icons';
 import { Button, Dropdown, InputGroup } from 'react-bootstrap';
 import './searchbar.css';
@@ -14,10 +14,13 @@ export const SearchBar: FunctionComponent<Props> = ({ handleSearch, handleSelect
     const [keyword, setKeyword] = useState('');
     const { searchSuggestions, handleFilter } = useSearchSuggestions();
 
+    useEffect(() => {
+        handleFilter(keyword);
+    }, [keyword, handleFilter]);
+
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { value } = event.target;
         setKeyword(value);
-        handleFilter(value);
     };
 
     const onSearch = useCallback(() => {
