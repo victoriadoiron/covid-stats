@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { searchTermMatchesCountry } from './CountrySummariesService';
 
 export const MOCK_COUNTRIES_LIST_2 = [
     {
@@ -159,7 +160,7 @@ export const MOCK_COUNTRIES_LIST_2 = [
         Country: 'Maldives',
         CountryCode: 'MA',
         Date: '2021-07-17T09:57:06.705Z',
-        ID: '91ba91ba-7a4c-4a3hse-91ba-7ef70e54',
+        ID: '88ba91ba-7a4c-4a3hse-91ba-7ef70j762',
         NewConfirmed: 0,
         NewDeaths: 0,
         NewRecovered: 0,
@@ -173,7 +174,7 @@ export const MOCK_COUNTRIES_LIST_2 = [
         Country: 'Norway',
         CountryCode: 'MA',
         Date: '2021-07-17T09:57:06.705Z',
-        ID: '91ba91ba-7a4c-4a3hse-91ba-7ef70e54',
+        ID: '91ha91ba-7a4c-4a3hse-91ba-7ef876hdds9',
         NewConfirmed: 0,
         NewDeaths: 0,
         NewRecovered: 0,
@@ -227,14 +228,7 @@ export const useCountrySummaries = () => {
                 return;
             }
 
-            const result = MOCK_COUNTRIES_LIST_2.filter(({ Country, Slug, CountryCode }) => {
-                const lowerCaseSearchTerm = searchTerm.toLowerCase();
-                return (
-                    Country.toLowerCase() === lowerCaseSearchTerm ||
-                    Slug.toLowerCase() === lowerCaseSearchTerm ||
-                    CountryCode.toLowerCase() === lowerCaseSearchTerm
-                );
-            });
+            const result = MOCK_COUNTRIES_LIST_2.filter(searchTermMatchesCountry(searchTerm));
 
             setSummaryData(result);
         },
