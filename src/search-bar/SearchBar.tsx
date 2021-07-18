@@ -1,6 +1,8 @@
 import React, { ChangeEvent, FunctionComponent, useState } from 'react';
 import { Search } from 'react-bootstrap-icons';
 import { Button, Dropdown, InputGroup } from 'react-bootstrap';
+import { MOCK_COUNTRIES_LIST } from '../summary-table/CountryList';
+import './searchbar.css';
 
 export const SearchBar: FunctionComponent = () => {
     const [keyword, setKeyword] = useState('');
@@ -25,7 +27,10 @@ export const SearchBar: FunctionComponent = () => {
                     />
                 </Dropdown.Toggle>
 
-                <Dropdown.Menu>
+                <Dropdown.Menu className="searchFilterMenu">
+                    {MOCK_COUNTRIES_LIST.map((countrySummary) => (
+                        <Dropdown.Item>{countrySummary.Country}</Dropdown.Item>
+                    ))}
                     <Dropdown.Item>Country 1 </Dropdown.Item>
                     <Dropdown.Item>Country 2</Dropdown.Item>
                     <Dropdown.Item>Country 3</Dropdown.Item>
