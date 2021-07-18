@@ -1,16 +1,24 @@
-import React, { ChangeEvent, FunctionComponent, useState } from 'react';
+import React, { ChangeEvent, FunctionComponent, useCallback, useState } from 'react';
 import { Search } from 'react-bootstrap-icons';
 import { Button, Dropdown, InputGroup } from 'react-bootstrap';
 import { MOCK_COUNTRIES_LIST } from '../summary-table/CountryList';
 import './searchbar.css';
 
-export const SearchBar: FunctionComponent = () => {
+interface Props {
+    handleSearch: (searchTerm: string) => void;
+}
+
+export const SearchBar: FunctionComponent<Props> = ({ handleSearch }) => {
     const [keyword, setKeyword] = useState('');
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { value } = event.target;
         setKeyword(value);
     };
+
+    const onSearch = useCallback(() => {
+        handleSearch(keyword);
+    }, [handleSearch, keyword]);
 
     return (
         <div className="input-group mb-3 col-3 ml-auto dropdown">
@@ -37,7 +45,12 @@ export const SearchBar: FunctionComponent = () => {
                 </Dropdown.Menu>
             </Dropdown>
             <div className="input-group-append">
-                <Button variant="secondary" id="search-button" disabled={!keyword}>
+                <Button
+                    variant="secondary"
+                    id="search-button"
+                    disabled={!keyword}
+                    onClick={onSearch}
+                >
                     <Search />
                 </Button>
             </div>

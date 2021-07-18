@@ -11,6 +11,7 @@ export interface CountrySummary extends Summary {
     Country: string;
     CountryCode: string;
     Slug: string;
+    ID: string;
 }
 
 interface SummaryResponse {

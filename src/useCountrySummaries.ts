@@ -1,18 +1,6 @@
-import React, { FunctionComponent } from 'react';
-import { Table } from 'react-bootstrap';
-import { CountryListItem } from './CountryListItem';
-import { GlobalSummary } from './GlobalSummary';
-import { CountrySummary } from '../api-services/getSummaries';
+import { useCallback, useState } from 'react';
 
-const MOCK_GLOBAL_SUMMARY = {
-    TotalConfirmed: 123456,
-    TotalRecovered: 9876,
-    TotalDeaths: 1200,
-    NewConfirmed: 0,
-    NewRecovered: 0,
-};
-
-export const MOCK_COUNTRIES_LIST = [
+export const MOCK_COUNTRIES_LIST_2 = [
     {
         Country: 'Afghanistan',
         CountryCode: 'AF',
@@ -225,27 +213,36 @@ export const MOCK_COUNTRIES_LIST = [
     },
 ];
 
-interface Props {
-    countrySummaries: CountrySummary[];
-}
+export const useCountrySummaries = () => {
+    const [summaryData, setSummaryData] = useState(MOCK_COUNTRIES_LIST_2);
 
-export const CountryList: FunctionComponent<Props> = ({ countrySummaries }) => {
-    return (
-        <Table className="table">
-            <thead className="thead-dark">
-                <tr>
-                    <th scope="col">Country</th>
-                    <th scope="col">Total Confirmed Cases</th>
-                    <th scope="col">Total Recovered</th>
-                    <th scope="col">Total Deaths</th>
-                </tr>
-            </thead>
-            <tbody>
-                {countrySummaries.map((countrySummary) => (
-                    <CountryListItem key={countrySummary.ID} countrySummary={countrySummary} />
-                ))}
-                <GlobalSummary globalSummary={MOCK_GLOBAL_SUMMARY} />
-            </tbody>
-        </Table>
+    const handleResetSummaryData = useCallback(() => {
+        setSummaryData(MOCK_COUNTRIES_LIST_2);
+    }, []);
+
+    const handleSearch = useCallback(
+        (searchTerm?: string) => {
+            if (!searchTerm) {
+                handleResetSummaryData();
+                return;
+            }
+
+            const result = MOCK_COUNTRIES_LIST_2.filter(({ Country, Slug, CountryCode }) => {
+                const lowerCaseSearchTerm = searchTerm.toLowerCase();
+                return (
+                    Country.toLowerCase() === lowerCaseSearchTerm ||
+                    Slug.toLowerCase() === lowerCaseSearchTerm ||
+                    CountryCode.toLowerCase() === lowerCaseSearchTerm
+                );
+            });
+
+            setSummaryData(result);
+        },
+        [handleResetSummaryData],
     );
+
+    return {
+        summaryData,
+        handleSearch,
+    };
 };
