@@ -1,8 +1,13 @@
 import { useCallback, useState } from 'react';
 import { searchTermMatchesCountry } from './CountrySummariesService';
-import { MOCK_COUNTRIES_LIST } from './api-services/getSummaries';
+import { CountrySummary, MOCK_COUNTRIES_LIST } from './api-services/getSummaries';
 
-export const useCountrySummaries = () => {
+interface CountrySummariesState {
+    summaryData: CountrySummary[];
+    handleSearch: (searchTerm?: string) => void;
+}
+
+export const useCountrySummaries = (): CountrySummariesState => {
     const [summaryData, setSummaryData] = useState(MOCK_COUNTRIES_LIST);
 
     const handleResetSummaryData = useCallback(() => {
