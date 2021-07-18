@@ -38,18 +38,19 @@ export const SearchBar: FunctionComponent<Props> = ({ handleSearch }) => {
                         onChange={handleChange}
                     />
                 </Dropdown.Toggle>
-
-                <Dropdown.Menu className="searchFilterMenu">
-                    {searchSuggestions.map((countrySummary) => (
-                        <Dropdown.Item
-                            eventKey={countrySummary.ID}
-                            onSelect={onSelect}
-                            key={countrySummary.ID}
-                        >
-                            {countrySummary.Country}
-                        </Dropdown.Item>
-                    ))}
-                </Dropdown.Menu>
+                {!!searchSuggestions?.length && (
+                    <Dropdown.Menu className="searchFilterMenu">
+                        {searchSuggestions.map((countrySummary) => (
+                            <Dropdown.Item
+                                eventKey={countrySummary.ID}
+                                onSelect={onSelect}
+                                key={countrySummary.ID}
+                            >
+                                {countrySummary.Country}
+                            </Dropdown.Item>
+                        ))}
+                    </Dropdown.Menu>
+                )}
             </Dropdown>
             <div className="input-group-append">
                 <Button
