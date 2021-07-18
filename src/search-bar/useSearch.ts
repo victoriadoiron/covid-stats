@@ -22,6 +22,11 @@ export const useSearch = (
         handleSearch(keyword);
     }, [handleSearch, keyword]);
 
+    const handleClear = useCallback(() => {
+        setKeyword('');
+        handleSearch('');
+    }, [handleSearch]);
+
     const onSelect = useCallback(
         (countryId: string | null) => {
             const selectedSuggestion = searchSuggestions.find(
@@ -44,5 +49,6 @@ export const useSearch = (
         onSearch,
         onSelect,
         searchSuggestions,
+        handleClear,
     };
 };

@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const SearchBar: FunctionComponent<Props> = ({ handleSearch, handleSelect }) => {
-    const { searchSuggestions, onSelect, onSearch, handleChange, keyword } = useSearch(
+    const { searchSuggestions, onSelect, onSearch, handleChange, keyword, handleClear } = useSearch(
         handleSearch,
         handleSelect,
     );
@@ -49,7 +49,7 @@ export const SearchBar: FunctionComponent<Props> = ({ handleSearch, handleSelect
             </Dropdown>
             <div className="input-group-append">
                 {!!keyword && (
-                    <Button variant="outline-secondary" id="clear-button">
+                    <Button variant="outline-secondary" id="clear-button" onClick={handleClear}>
                         <X />
                     </Button>
                 )}
