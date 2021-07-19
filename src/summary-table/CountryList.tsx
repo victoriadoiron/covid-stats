@@ -19,7 +19,7 @@ interface Props {
 
 export const CountryList: FunctionComponent<Props> = ({ countrySummaries }) => {
     return (
-        <Table className="table">
+        <Table className="table mt-2">
             <thead className="thead-dark">
                 <tr>
                     <th scope="col">Country</th>
