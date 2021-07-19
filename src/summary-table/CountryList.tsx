@@ -2,22 +2,14 @@ import React, { FunctionComponent } from 'react';
 import { Table } from 'react-bootstrap';
 import { CountryListItem } from './CountryListItem';
 import { GlobalSummary } from './GlobalSummary';
-import { CountrySummary } from '../api-services/getSummaries';
-
-const MOCK_GLOBAL_SUMMARY = {
-    TotalConfirmed: 123456,
-    TotalRecovered: 9876,
-    TotalDeaths: 1200,
-    NewDeaths: 0,
-    NewConfirmed: 0,
-    NewRecovered: 0,
-};
+import { CountrySummary, Summary } from '../api-services/getSummaries';
 
 interface Props {
     countrySummaries: CountrySummary[];
+    globalSummary: Summary;
 }
 
-export const CountryList: FunctionComponent<Props> = ({ countrySummaries }) => {
+export const CountryList: FunctionComponent<Props> = ({ countrySummaries, globalSummary }) => {
     return (
         <Table className="table mt-2">
             <thead className="thead-dark">
@@ -32,7 +24,7 @@ export const CountryList: FunctionComponent<Props> = ({ countrySummaries }) => {
                 {countrySummaries.map((countrySummary) => (
                     <CountryListItem key={countrySummary.ID} countrySummary={countrySummary} />
                 ))}
-                <GlobalSummary globalSummary={MOCK_GLOBAL_SUMMARY} />
+                <GlobalSummary globalSummary={globalSummary} />
             </tbody>
         </Table>
     );

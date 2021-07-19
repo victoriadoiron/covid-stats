@@ -24,7 +24,7 @@ export const App: FunctionComponent = () => {
                 <SearchBar handleSearch={handleSearch} handleSelect={handleSelect} />
             </Row>
             {activeDataView === DATA_VIEW.TABLE && !!summary?.countries && (
-                <CountryList countrySummaries={summary.countries} />
+                <CountryList countrySummaries={summary.countries} globalSummary={summary.global} />
             )}
             {activeDataView === DATA_VIEW.CHART && !!summary?.countries && (
                 <SummaryChart countrySummaries={summary.countries} />
