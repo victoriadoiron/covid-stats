@@ -3,6 +3,7 @@ import { searchTermMatchesCountry } from './CountrySummariesService';
 import {
     CountrySummary,
     getSummaries,
+    Summary,
     SummaryResponse,
 } from './api-services/getSummaries';
 
@@ -10,7 +11,7 @@ interface CountrySummariesState {
     filteredCountries?: CountrySummary[];
     handleSearch: (searchTerm?: string) => void;
     handleSelect: (suggestion: CountrySummary) => void;
-    summary?: SummaryResponse;
+    global?: Summary;
     pending: boolean;
 }
 
@@ -61,7 +62,7 @@ export const useCountrySummaries = (): CountrySummariesState => {
         filteredCountries,
         handleSearch,
         handleSelect,
-        summary,
+        global: summary?.global,
         pending,
     };
 };
