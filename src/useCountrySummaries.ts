@@ -3,11 +3,11 @@ import { searchTermMatchesCountry } from './CountrySummariesService';
 import {
     CountrySummary,
     getSummaries,
-    MOCK_COUNTRIES_LIST,
     SummaryResponse,
 } from './api-services/getSummaries';
 
 interface CountrySummariesState {
+    filteredCountries?: CountrySummary[];
     handleSearch: (searchTerm?: string) => void;
     handleSelect: (suggestion: CountrySummary) => void;
     summary?: SummaryResponse;
@@ -15,10 +15,10 @@ interface CountrySummariesState {
 }
 
 export const useCountrySummaries = (): CountrySummariesState => {
-    const [summaryData, setSummaryData] = useState(MOCK_COUNTRIES_LIST);
     const [summary, setSummary] = useState<SummaryResponse>();
     const [pending, setPending] = useState(false);
     const [errors, setErrors] = useState(false);
+    const [filteredCountries, setFilteredCountries] = useState<CountrySummary[]>();
 
     useEffect(() => {
         setPending(true);
@@ -26,6 +26,7 @@ export const useCountrySummaries = (): CountrySummariesState => {
             try {
                 const response = await getSummaries();
                 setSummary(response);
+                setFilteredCountries(response.countries);
             } catch (e) {
                 setErrors(true);
             } finally {
@@ -35,8 +36,8 @@ export const useCountrySummaries = (): CountrySummariesState => {
     }, []);
 
     const handleResetSummaryData = useCallback(() => {
-        setSummaryData(MOCK_COUNTRIES_LIST);
-    }, []);
+        setFilteredCountries(summary?.countries);
+    }, [summary?.countries]);
 
     const handleSearch = useCallback(
         (searchTerm?: string) => {
@@ -45,18 +46,19 @@ export const useCountrySummaries = (): CountrySummariesState => {
                 return;
             }
 
-            const result = MOCK_COUNTRIES_LIST.filter(searchTermMatchesCountry(searchTerm));
+            const result = summary?.countries?.filter(searchTermMatchesCountry(searchTerm));
 
-            setSummaryData(result);
+            setFilteredCountries(result);
         },
-        [handleResetSummaryData],
+        [summary?.countries, handleResetSummaryData],
     );
 
     const handleSelect = useCallback((suggestion: CountrySummary) => {
-        setSummaryData([suggestion]);
+        setFilteredCountries([suggestion]);
     }, []);
 
     return {
+        filteredCountries,
         handleSearch,
         handleSelect,
         summary,
