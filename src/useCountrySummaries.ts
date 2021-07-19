@@ -1,15 +1,39 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { searchTermMatchesCountry } from './CountrySummariesService';
-import { CountrySummary, MOCK_COUNTRIES_LIST } from './api-services/getSummaries';
+import {
+    CountrySummary,
+    getSummaries,
+    MOCK_COUNTRIES_LIST,
+    SummaryResponse,
+} from './api-services/getSummaries';
 
 interface CountrySummariesState {
     summaryData: CountrySummary[];
     handleSearch: (searchTerm?: string) => void;
     handleSelect: (suggestion: CountrySummary) => void;
+    summary?: SummaryResponse;
+    pending: boolean;
 }
 
 export const useCountrySummaries = (): CountrySummariesState => {
     const [summaryData, setSummaryData] = useState(MOCK_COUNTRIES_LIST);
+    const [summary, setSummary] = useState<SummaryResponse>();
+    const [pending, setPending] = useState(false);
+    const [errors, setErrors] = useState(false);
+
+    useEffect(() => {
+        setPending(true);
+        (async () => {
+            try {
+                const response = await getSummaries();
+                setSummary(response);
+            } catch (e) {
+                setErrors(true);
+            } finally {
+                setPending(false);
+            }
+        })();
+    }, []);
 
     const handleResetSummaryData = useCallback(() => {
         setSummaryData(MOCK_COUNTRIES_LIST);
@@ -37,5 +61,7 @@ export const useCountrySummaries = (): CountrySummariesState => {
         summaryData,
         handleSearch,
         handleSelect,
+        summary,
+        pending,
     };
 };

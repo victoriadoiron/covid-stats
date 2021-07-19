@@ -18,9 +18,9 @@ export interface CountrySummary extends Summary {
     Date: string;
 }
 
-interface SummaryResponse {
-    Global: Summary;
-    Countries?: CountrySummary[];
+export interface SummaryResponse {
+    global: Summary;
+    countries?: CountrySummary[];
 }
 
 const summaryUrl = 'https://api.covid19api.com/summary';
@@ -240,5 +240,5 @@ export const MOCK_COUNTRIES_LIST = [
 
 export const getSummaries = async (): Promise<SummaryResponse> => {
     const { data } = await axios.get(summaryUrl);
-    return data;
+    return { countries: data.Countries, global: data.Global };
 };

@@ -7,7 +7,7 @@ import { SummaryChart } from './summary-chart/SummaryChart';
 import { DATA_VIEW, TabNavigation } from './TabNavigation';
 
 export const App: FunctionComponent = () => {
-    const { summaryData, handleSearch, handleSelect } = useCountrySummaries();
+    const { summaryData, handleSearch, handleSelect, summary, pending } = useCountrySummaries();
     const [activeDataView, setActiveDataView] = useState(DATA_VIEW.TABLE);
 
     const handleTabSelect = useCallback((viewId: DATA_VIEW | null) => {
@@ -23,8 +23,12 @@ export const App: FunctionComponent = () => {
                 </Col>
                 <SearchBar handleSearch={handleSearch} handleSelect={handleSelect} />
             </Row>
-            {activeDataView === DATA_VIEW.TABLE && <CountryList countrySummaries={summaryData} />}
-            {activeDataView === DATA_VIEW.CHART && <SummaryChart countrySummaries={summaryData} />}
+            {activeDataView === DATA_VIEW.TABLE && !!summary?.countries && (
+                <CountryList countrySummaries={summary.countries} />
+            )}
+            {activeDataView === DATA_VIEW.CHART && !!summary?.countries && (
+                <SummaryChart countrySummaries={summary.countries} />
+            )}
         </div>
     );
 };
