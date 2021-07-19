@@ -8,7 +8,6 @@ import {
 } from './api-services/getSummaries';
 
 interface CountrySummariesState {
-    summaryData: CountrySummary[];
     handleSearch: (searchTerm?: string) => void;
     handleSelect: (suggestion: CountrySummary) => void;
     summary?: SummaryResponse;
@@ -58,7 +57,6 @@ export const useCountrySummaries = (): CountrySummariesState => {
     }, []);
 
     return {
-        summaryData,
         handleSearch,
         handleSelect,
         summary,

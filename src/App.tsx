@@ -7,7 +7,7 @@ import { SummaryChart } from './summary-chart/SummaryChart';
 import { DATA_VIEW, TabNavigation } from './TabNavigation';
 
 export const App: FunctionComponent = () => {
-    const { summaryData, handleSearch, handleSelect, summary, pending } = useCountrySummaries();
+    const { handleSearch, handleSelect, summary, pending } = useCountrySummaries();
     const [activeDataView, setActiveDataView] = useState(DATA_VIEW.TABLE);
 
     const handleTabSelect = useCallback((viewId: DATA_VIEW | null) => {
