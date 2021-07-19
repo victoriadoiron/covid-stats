@@ -150,7 +150,7 @@ export const MOCK_COUNTRIES_LIST = [
         Slug: 'japan',
         TotalConfirmed: 98800,
         TotalDeaths: 2344,
-        TotalRecovered: 876654,
+        TotalRecovered: 87668,
     },
     {
         Country: 'Morocco',
