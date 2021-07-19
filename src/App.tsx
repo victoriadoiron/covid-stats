@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useCallback, useState } from 'react';
-import { Col, Nav, Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import { CountryList } from './summary-table/CountryList';
 import { SearchBar } from './search-bar/SearchBar';
 import { useCountrySummaries } from './useCountrySummaries';
