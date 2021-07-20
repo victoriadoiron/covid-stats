@@ -1,6 +1,6 @@
 import React, { FunctionComponent, KeyboardEvent } from 'react';
 import { Search, X } from 'react-bootstrap-icons';
-import { Button, Dropdown, InputGroup } from 'react-bootstrap';
+import {Button, Col, Dropdown, InputGroup, Row} from 'react-bootstrap';
 import './searchbar.css';
 import { CountrySummary } from '../api-services/getSummaries';
 import { useSearch } from './useSearch';
@@ -25,21 +25,19 @@ export const SearchBar: FunctionComponent<Props> = ({ handleSearch, handleSelect
     };
 
     return (
-        <div className="input-group mb-3 col-3 ml-auto dropdown">
-            <Dropdown>
+        <Col className="mb-3 input-group dropdown">
+            <Dropdown className="ml-auto w-50">
                 <Dropdown.Toggle as={InputGroup} bsPrefix="p-0">
-                    <div>
-                        <input
-                            value={keyword}
-                            type="text"
-                            className="form-control"
-                            placeholder="Filter by country"
-                            aria-label="Filter by country"
-                            aria-describedby="search-button"
-                            onChange={handleChange}
-                            onKeyPress={handleKeyPress}
-                        />
-                    </div>
+                    <input
+                        value={keyword}
+                        type="text"
+                        className="form-control"
+                        placeholder="Filter by country"
+                        aria-label="Filter by country"
+                        aria-describedby="search-button"
+                        onChange={handleChange}
+                        onKeyPress={handleKeyPress}
+                    />
                 </Dropdown.Toggle>
                 <Dropdown.Menu className="searchFilterMenu">
                     {searchSuggestions.map((countrySummary) => (
@@ -71,6 +69,6 @@ export const SearchBar: FunctionComponent<Props> = ({ handleSearch, handleSelect
                     <Search />
                 </Button>
             </div>
-        </div>
+        </Col>
     );
 };
