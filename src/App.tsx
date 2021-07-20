@@ -17,7 +17,7 @@ export const App: FunctionComponent = () => {
     }, []);
 
     return (
-        <div className="mt-5 ml-5 mr-5">
+        <div className="mt-3 ml-5 mr-5">
             <h1 className="h5">COVID-19 Statistics</h1>
             {pending && <LoadingView />}
             {!pending && (
