@@ -31,7 +31,7 @@ export const SummaryChart: FunctionComponent<Props> = ({ countrySummaries }) => 
                     margin={{
                         top: 5,
                         right: 30,
-                        left: 20,
+                        left: 40,
                         bottom: 5,
                     }}
                 >
