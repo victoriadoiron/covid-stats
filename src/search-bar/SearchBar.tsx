@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, KeyboardEvent } from 'react';
 import { Search, X } from 'react-bootstrap-icons';
 import { Button, Dropdown, InputGroup } from 'react-bootstrap';
 import './searchbar.css';
@@ -10,11 +10,19 @@ interface Props {
     handleSelect: (suggestion: CountrySummary) => void;
 }
 
+const ENTER_KEY = 'Enter';
+
 export const SearchBar: FunctionComponent<Props> = ({ handleSearch, handleSelect }) => {
     const { searchSuggestions, onSelect, onSearch, handleChange, keyword, handleClear } = useSearch(
         handleSearch,
         handleSelect,
     );
+
+    const handleKeyPress = (event: KeyboardEvent<HTMLElement>) => {
+        if (event.key === ENTER_KEY) {
+            onSearch();
+        }
+    };
 
     return (
         <div className="input-group mb-3 col-3 ml-auto dropdown">
@@ -29,6 +37,7 @@ export const SearchBar: FunctionComponent<Props> = ({ handleSearch, handleSelect
                             aria-label="Filter by country"
                             aria-describedby="search-button"
                             onChange={handleChange}
+                            onKeyPress={handleKeyPress}
                         />
                     </div>
                 </Dropdown.Toggle>
